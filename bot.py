@@ -2,6 +2,15 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
+def save_username_to_txt(username, file_path="usernames.txt"):
+    try:
+        # Cek apakah file sudah ada, jika tidak buat file baru
+        with open(file_path, "a") as file:
+            file.write(username + "\n")
+        print(f"Username '{username}' berhasil disimpan ke {file_path}.")
+    except Exception as e:
+        print(f"Terjadi kesalahan saat menyimpan username: {e}")
+
 def download_tiktok_video_no_watermark(url, save_path="downloads"):
     try:
         # Cek apakah folder tujuan sudah ada, jika tidak buat folder
@@ -46,6 +55,9 @@ def download_tiktok_video_no_watermark(url, save_path="downloads"):
 
 def download_all_videos_from_user(username, save_path="downloads"):
     try:
+        # Simpan username ke file txt
+        save_username_to_txt(username)
+
         # Cek apakah folder tujuan sudah ada, jika tidak buat folder
         if not os.path.exists(save_path):
             os.makedirs(save_path)
